@@ -1,0 +1,28 @@
+{
+  "categories": {
+    "Programming": ["Java", "Python", "C", "C++", "JavaScript", "TypeScript", "C#", "PHP", "Go", "Rust", "Kotlin", "Swift", "Ruby", "R", "MATLAB", "Bash", "PowerShell"],
+    "Frontend": ["HTML", "CSS", "React", "Angular", "AngularJS", "Vue", "Bootstrap", "Tailwind CSS", "Sass", "Webpack", "Vite", "jQuery", "Redux", "Next.js"],
+    "Backend": ["Node.js", "Express", "Spring", "Spring Boot", "Django", "Flask", "FastAPI", "REST API", "GraphQL", ".NET", "ASP.NET", "Hibernate", "Microservices"],
+    "Database": ["MySQL", "PostgreSQL", "MongoDB", "SQLite", "Redis", "Oracle", "SQL", "NoSQL", "MariaDB", "DynamoDB", "Firebase", "Elasticsearch"],
+    "Cloud & DevOps": ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "Ansible", "Jenkins", "GitHub Actions", "CI/CD", "Nginx", "Apache"],
+    "Tools": ["Git", "GitHub", "GitLab", "Postman", "Linux", "Jira", "Confluence", "VS Code", "IntelliJ IDEA", "Maven", "Gradle", "npm", "Figma"],
+    "Computer Science": ["Data Structures", "Algorithms", "OOP", "Operating Systems", "Computer Networks", "DBMS", "System Design", "Design Patterns", "Distributed Systems"],
+    "Data & AI": ["Machine Learning", "Artificial Intelligence", "NLP", "Deep Learning", "Pandas", "NumPy", "Scikit-learn", "TensorFlow", "PyTorch", "Keras", "OpenCV", "Data Analysis", "Data Visualization", "Power BI", "Tableau", "Apache Spark", "Hadoop"],
+    "Testing": ["Pytest", "JUnit", "Selenium", "Cypress", "Playwright", "Jest", "Unit Testing", "Integration Testing", "Test Automation"],
+    "Methods": ["Agile", "Scrum", "Kanban", "SDLC", "API Design", "Responsive Design", "Accessibility"]
+  },
+  "aliases": {
+    "js": "JavaScript", "nodejs": "Node.js", "node js": "Node.js", "reactjs": "React", "react.js": "React",
+    "vuejs": "Vue", "vue.js": "Vue", "angularjs": "AngularJS", "springboot": "Spring Boot",
+    "spring framework": "Spring", "express.js": "Express", "expressjs": "Express",
+    "restful api": "REST API", "restful apis": "REST API", "rest apis": "REST API", "postgres": "PostgreSQL",
+    "mongo": "MongoDB", "gcp": "Google Cloud", "amazon web services": "AWS", "machine learning": "Machine Learning",
+    "ml": "Machine Learning", "artificial intelligence": "Artificial Intelligence", "ai": "Artificial Intelligence",
+    "natural language processing": "NLP", "object oriented programming": "OOP", "object-oriented programming": "OOP",
+    "oops": "OOP", "data structures and algorithms": "Data Structures", "dsa": "Data Structures",
+    "ci/cd": "CI/CD", "continuous integration": "CI/CD", "c sharp": "C#", "c plus plus": "C++",
+    "dotnet": ".NET", "k8s": "Kubernetes", "sklearn": "Scikit-learn", "scikit learn": "Scikit-learn",
+    "html5": "HTML", "css3": "CSS", "python3": "Python", "python 3": "Python", "java8": "Java", "java 8": "Java"
+  },
+  "ambiguous": ["C", "R", "Go", "Express", "Spring"]
+}

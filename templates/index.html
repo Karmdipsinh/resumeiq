@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Analyze your resume and compare it with real job requirements using transparent, local algorithms.">
+  <title>ResumeIQ · Explainable Resume Analyzer &amp; Job Matcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('index') }}" aria-label="ResumeIQ home">
+      <span class="brand-mark">R</span><span>Resume<span class="brand-accent">IQ</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a class="button button-small button-ghost" href="{{ url_for('dashboard') }}">Open dashboard</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="status-dot"></span> Private, local &amp; explainable</span>
+        <h1>Turn your resume into a <span>stronger application.</span></h1>
+        <p>Analyze your resume, identify skill gaps, and measure your compatibility with a job description—without sending your data to an external AI service.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="{{ url_for('dashboard') }}">Analyze my resume <span aria-hidden="true">→</span></a>
+          <button class="button button-secondary js-demo" type="button">Try the live demo</button>
+        </div>
+        <div class="trust-row">
+          <span>✓ No account required</span><span>✓ Deterministic scoring</span><span>✓ 5 MB upload limit</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="Example resume analysis">
+        <div class="preview-window">
+          <div class="window-bar"><span></span><span></span><span></span><small>Resume analysis</small></div>
+          <div class="preview-content">
+            <div class="score-ring" style="--score:{{ demo_preview.resume.total_score }}"><div><strong>{{ demo_preview.resume.total_score }}</strong><span>/ 100</span></div></div>
+            <div class="preview-summary"><span class="success-label">Synthetic demo</span><h3>Structure &amp; content analysis</h3><p>{{ demo_preview.skills|length }} skills detected from the demo</p></div>
+          </div>
+          <div class="mini-bars">
+            <div><span>Skills</span><i><b style="width:{{ demo_preview.resume.breakdown.skills * 5 }}%"></b></i><strong>{{ demo_preview.resume.breakdown.skills }}/20</strong></div>
+            <div><span>Projects</span><i><b style="width:{{ (demo_preview.resume.breakdown.projects / 15 * 100)|round }}%"></b></i><strong>{{ demo_preview.resume.breakdown.projects }}/15</strong></div>
+            <div><span>Experience</span><i><b style="width:{{ (demo_preview.resume.breakdown.experience / 15 * 100)|round }}%"></b></i><strong>{{ demo_preview.resume.breakdown.experience }}/15</strong></div>
+          </div>
+          <div class="floating-match"><span>Demo job match</span><strong>{{ demo_preview.match.final_match_score }}%</strong><small>{{ demo_preview.match.keyword_score }} keyword / {{ demo_preview.match.semantic_score }} semantic</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-section" id="features">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">Built for better applications</span><h2>Useful insights, no black box</h2><p>Every score comes from your actual resume and job description.</p></div>
+        <div class="feature-grid">
+          <article class="feature-card"><span class="feature-icon violet">↗</span><h3>Resume analysis</h3><p>Score eight practical areas including contact details, skills, projects, experience, and structure.</p></article>
+          <article class="feature-card"><span class="feature-icon blue">⌘</span><h3>Skill extraction</h3><p>Recognize 100+ technical skills and common variations without fragile substring matching.</p></article>
+          <article class="feature-card"><span class="feature-icon green">◎</span><h3>Job matching</h3><p>Compare the skills in your resume directly with the requirements in any pasted job description.</p></article>
+          <article class="feature-card"><span class="feature-icon amber">◇</span><h3>Skill-gap detection</h3><p>See what already matches and which relevant skills you may want to develop next.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps-section container" id="how-it-works">
+      <div class="section-heading"><span class="eyebrow">Three simple steps</span><h2>From resume to focused next steps</h2></div>
+      <div class="steps">
+        <article><span>01</span><h3>Upload</h3><p>Add a text-based PDF or DOCX resume.</p></article>
+        <article><span>02</span><h3>Compare</h3><p>Paste the job description you care about.</p></article>
+        <article><span>03</span><h3>Improve</h3><p>Review explainable scores and skill gaps.</p></article>
+      </div>
+      <div class="cta-panel"><div><h2>Ready to sharpen your application?</h2><p>Uploads are deleted after parsing. Results stay in local SQLite; no external AI API is used.</p></div><a class="button button-light" href="{{ url_for('dashboard') }}">Start analyzing →</a></div>
+    </section>
+  </main>
+  <footer><div class="container footer-inner"><span>ResumeIQ</span><small>Built with Flask, SQLite, and transparent algorithms.</small></div></footer>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='js/app_helpers.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</body>
+</html>

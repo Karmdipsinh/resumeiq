@@ -1,0 +1,7 @@
+{
+  "name": "resumeiq-frontend-tests",
+  "private": true,
+  "scripts": {
+    "test:js": "node --test static/js/app_helpers.test.js"
+  }
+}

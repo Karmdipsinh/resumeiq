@@ -1,0 +1,37 @@
+[
+  {
+    "id": "relevant_backend",
+    "resume_text": "Developed tested Python Flask APIs backed by PostgreSQL and Docker.",
+    "resume_skills": ["Python", "Flask", "PostgreSQL", "Docker"],
+    "job_description": "Required: Python, Flask, PostgreSQL and Docker. Build reliable backend APIs.",
+    "expect": "strong"
+  },
+  {
+    "id": "alias_match",
+    "resume_text": "Deployed Kubernetes services and trained scikit-learn models.",
+    "resume_skills": ["Kubernetes", "Scikit-learn"],
+    "job_description": "Experience with k8s and sklearn is required.",
+    "expect": "matched"
+  },
+  {
+    "id": "semantic_only",
+    "resume_text": "Developed scalable customer-facing web services.",
+    "resume_skills": [],
+    "job_description": "Build scalable web services for customers.",
+    "expect": "semantic_signal"
+  },
+  {
+    "id": "unrelated",
+    "resume_text": "Managed retail inventory and store accounting.",
+    "resume_skills": [],
+    "job_description": "Develop Python Flask APIs on Kubernetes.",
+    "expect": "weak"
+  },
+  {
+    "id": "single_skill",
+    "resume_text": "Python",
+    "resume_skills": ["Python"],
+    "job_description": "Python",
+    "expect": "capped"
+  }
+]

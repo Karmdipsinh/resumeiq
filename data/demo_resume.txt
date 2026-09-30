@@ -1,0 +1,23 @@
+PRIYA SHARMA
+priya.sharma@example.com | +91 98765 43210 | github.com/priyasharma | linkedin.com/in/priyasharma
+
+PROFESSIONAL SUMMARY
+Junior software developer who builds reliable web applications with Python, Flask, JavaScript, and SQL. Comfortable collaborating in Agile teams and learning new tools.
+
+TECHNICAL SKILLS
+Python, Java, JavaScript, HTML, CSS, Flask, REST API, SQL, PostgreSQL, Git, GitHub, Pytest, Linux
+
+EDUCATION
+Bachelor of Technology in Computer Science, Example Institute of Technology, 2025
+
+PROJECTS
+- Built a Flask expense tracker with PostgreSQL and REST API endpoints for 100 users.
+- Developed a responsive JavaScript study planner and added Pytest integration tests.
+
+EXPERIENCE
+Software Development Intern, Example Labs
+- Implemented three REST API features and improved automated test coverage by 20%.
+- Collaborated through GitHub pull requests in an Agile team.
+
+CERTIFICATIONS
+Python Programming Certificate

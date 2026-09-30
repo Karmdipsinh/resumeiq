@@ -1,0 +1,15 @@
+"""Central configuration for ResumeIQ's explainable analysis pipeline."""
+
+MAX_UPLOAD_BYTES = 5 * 1024 * 1024
+MAX_JOB_DESCRIPTION_CHARS = 20_000
+MAX_EXTRACTED_TEXT_CHARS = 200_000
+MAX_SEMANTIC_TEXT_CHARS = 50_000
+MAX_DOCX_UNCOMPRESSED_BYTES = 25 * 1024 * 1024
+MAX_DOCX_COMPRESSION_RATIO = 100
+
+# Heuristic weights: understandable defaults, not claimed as scientifically optimal.
+KEYWORD_WEIGHT = 0.60
+SEMANTIC_WEIGHT = 0.40
+REQUIRED_SKILL_WEIGHT = 2.0
+PREFERRED_SKILL_WEIGHT = 0.5
+GENERAL_SKILL_WEIGHT = 1.0

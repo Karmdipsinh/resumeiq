@@ -1,0 +1,3 @@
+Junior Backend Developer
+
+We are looking for a developer with Python, Flask, REST API, PostgreSQL, Git, and Linux experience. Familiarity with Docker, AWS, and CI/CD is preferred. You will build tested APIs and collaborate in an Agile team.

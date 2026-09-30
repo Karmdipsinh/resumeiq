@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if analysis %}Analysis Results{% else %}Not Found{% endif %} · ResumeIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="app-body" data-page="result">
+  <header class="site-header app-header">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">R</span><span>Resume<span class="brand-accent">IQ</span></span></a>
+    <a class="button button-small button-secondary" href="{{ url_for('dashboard') }}">＋ New analysis</a>
+  </header>
+  <main class="results-shell container">
+  {% if not analysis %}
+    <section class="empty-page"><span>404</span><h1>Analysis not found</h1><p>This result may have been removed or the link is incorrect.</p><a class="button button-primary" href="{{ url_for('dashboard') }}">Return to dashboard</a></section>
+  {% else %}
+    <section class="results-heading"><div><span class="eyebrow">Analysis complete</span><h1>Your application insights</h1><p>{{ analysis.resume_filename }} · <time class="js-date" datetime="{{ analysis.created_at }}">{{ analysis.created_at }}</time></p></div><button class="button button-secondary js-print" type="button">Print report</button></section>
+
+    <section class="score-grid">
+      <article class="score-card primary-score">
+        <div><span class="card-kicker">Structure &amp; content score</span><h2>{{ analysis.resume_score }}<small>/100</small></h2><p>Heuristic guidance, not an ATS or recruiter verdict.</p></div>
+        <div class="score-ring" style="--score:{{ analysis.resume_score }}"><div><strong>{{ analysis.resume_score }}</strong><span>points</span></div></div>
+      </article>
+      <article class="score-card match-score">
+        <div><span class="card-kicker">Final job match</span>{% if analysis.job_match %}<h2>{{ analysis.job_match.final_match_score }}<small>%</small></h2><p>{{ analysis.job_match.keyword_score }}% keyword and {{ analysis.job_match.semantic_score }}% semantic inputs</p>{% else %}<h2>—</h2><p>No job description was provided.</p>{% endif %}</div>
+        <div class="match-orbit"><span>{% if analysis.job_match %}{{ analysis.job_match.match_percentage }}%{% else %}N/A{% endif %}</span></div>
+      </article>
+    </section>
+
+    <section class="result-grid">
+      <article class="panel breakdown-panel">
+        <div class="panel-title"><div><span class="eyebrow">Transparent scoring</span><h2>Score breakdown</h2></div><small>Earned / possible</small></div>
+        {% set maximums = {'contact':10,'summary':10,'skills':20,'education':15,'projects':15,'experience':15,'certifications':5,'completeness':10} %}
+        <div class="breakdown-list">
+        {% for key, value in analysis.score_breakdown.items() %}
+          <div class="breakdown-row"><div><span>{{ key|replace('_',' ')|title }}</span><strong>{{ value }} / {{ maximums[key] }}</strong></div><div class="progress-track"><i style="width:{{ (value / maximums[key] * 100)|round }}%"></i></div></div>
+        {% endfor %}
+        </div>
+      </article>
+
+      <article class="panel skills-panel">
+        <div class="panel-title"><div><span class="eyebrow">From your resume</span><h2>Skills found</h2></div><span class="count-pill">{{ analysis.detected_skills|length }}</span></div>
+        {% if analysis.skills_by_category %}
+          {% for category, skills in analysis.skills_by_category.items() %}
+          <div class="skill-group"><h3>{{ category }}</h3><div class="skill-cloud">{% for skill in skills %}<span>{{ skill }}</span>{% endfor %}</div></div>
+          {% endfor %}
+        {% else %}<div class="empty-state">No recognized technical skills were found.</div>{% endif %}
+      </article>
+    </section>
+
+    {% if analysis.job_match %}
+    <section class="panel match-breakdown">
+      <div class="panel-title"><div><span class="eyebrow">Explainable formula</span><h2>Matching breakdown</h2></div></div>
+      <div class="metric-grid"><div><small>Final Match</small><strong>{{ analysis.job_match.final_match_score }}%</strong></div><div><small>Keyword Match</small><strong>{{ analysis.job_match.keyword_score }}%</strong></div><div><small>Semantic Similarity</small><strong>{{ analysis.job_match.semantic_score }}%</strong></div></div>
+      <p class="method-note">{{ analysis.job_match.explanation }}</p>
+    </section>
+    <section class="panel match-details">
+      <div class="panel-title"><div><span class="eyebrow">Role compatibility</span><h2>Job skill comparison</h2></div></div>
+      <div class="comparison-grid">
+        <div><h3><span class="dot green-dot"></span> Matching skills</h3><div class="check-list">{% for skill in analysis.job_match.matched_skills %}<span class="positive">✓ {{ skill }}</span>{% else %}<p>No recognized skills match yet.</p>{% endfor %}</div></div>
+        <div><h3><span class="dot red-dot"></span> Missing skills</h3><div class="check-list">{% for skill in analysis.job_match.missing_skills %}<span class="negative">× {{ skill }}</span>{% else %}<p>No recognized skill gaps—great alignment.</p>{% endfor %}</div></div>
+      </div>
+      <div class="requirement-groups"><div><h3>Required</h3><p>{{ analysis.job_match.required_skills|join(', ') or 'Not clearly identified' }}</p></div><div><h3>Preferred</h3><p>{{ analysis.job_match.preferred_skills|join(', ') or 'Not clearly identified' }}</p></div><div><h3>General</h3><p>{{ analysis.job_match.general_skills|join(', ') or 'None' }}</p></div></div>
+      <details class="job-description"><summary>Job description analyzed</summary><pre>{{ analysis.job_match.job_description }}</pre></details>
+    </section>
+    {% if analysis.job_matches|length > 1 %}
+    <section class="panel">
+      <div class="panel-title"><div><span class="eyebrow">Saved comparisons</span><h2>Match history</h2></div><span class="count-pill">{{ analysis.job_matches|length }}</span></div>
+      <div class="requirement-groups">
+        {% for saved_match in analysis.job_matches %}
+        <div><h3>{{ saved_match.final_match_score }}% match</h3><p>{{ saved_match.job_description|truncate(140) }}</p></div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+    {% endif %}
+
+    <section class="insights-grid">
+      <article class="insight-card strengths"><span class="insight-icon">✓</span><div><h2>Resume strengths</h2><ul>{% for item in analysis.strengths %}<li>{{ item }}</li>{% endfor %}</ul></div></article>
+      <article class="insight-card weaknesses"><span class="insight-icon">!</span><div><h2>Areas to improve</h2>{% if analysis.weaknesses %}<ul>{% for item in analysis.weaknesses %}<li>{{ item }}</li>{% endfor %}</ul>{% else %}<p>No major structural weaknesses were detected.</p>{% endif %}</div></article>
+    </section>
+
+    <section class="panel recommendations">
+      <div class="panel-title"><div><span class="eyebrow">Your next steps</span><h2>Recommendations</h2></div></div>
+      <div class="recommendation-list">
+        {% for item in analysis.suggestions %}<div><span>{{ loop.index }}</span><p>{{ item }}</p></div>{% endfor %}
+        {% if analysis.job_match %}{% for item in analysis.job_match.recommendations %}<div><span>{{ analysis.suggestions|length + loop.index }}</span><p>{{ item }}</p></div>{% endfor %}{% endif %}
+      </div>
+    </section>
+    <div class="results-actions"><a class="button button-primary" href="{{ url_for('dashboard') }}">Analyze another resume</a><a class="button button-secondary" href="{{ url_for('index') }}">Back to home</a></div>
+  {% endif %}
+  </main>
+  <script src="{{ url_for('static', filename='js/app_helpers.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</body>
+</html>

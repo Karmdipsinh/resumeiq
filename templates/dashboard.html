@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · ResumeIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="app-body" data-page="dashboard">
+  <header class="site-header app-header">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">R</span><span>Resume<span class="brand-accent">IQ</span></span></a>
+    <div class="header-actions"><span class="privacy-pill">● Local analysis</span><button class="button button-small button-secondary js-demo" type="button">Load demo</button></div>
+  </header>
+  <main class="dashboard-shell container">
+    <section class="dashboard-intro"><div><span class="eyebrow">Application workspace</span><h1>Analyze your fit for the role</h1><p>Upload your resume and optionally paste a job description for a complete skill-gap report.</p></div></section>
+
+    <form id="analysis-form" class="analyzer-grid" enctype="multipart/form-data" novalidate>
+      <section class="panel upload-panel">
+        <div class="panel-heading"><span class="step-badge">1</span><div><h2>Add your resume</h2><p>PDF or DOCX, up to 5 MB</p></div></div>
+        <label class="drop-zone" id="drop-zone" for="resume-file">
+          <input id="resume-file" name="resume" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+          <span class="upload-icon">⇧</span>
+          <strong>Drop your resume here</strong>
+          <span>or <u>browse your files</u></span>
+          <small>Text-based PDF and DOCX only</small>
+        </label>
+        <div class="file-selection" id="file-selection" hidden><span class="file-type">PDF</span><div><strong id="file-name"></strong><small id="file-size"></small></div><button type="button" id="remove-file" aria-label="Remove file">×</button></div>
+      </section>
+
+      <section class="panel job-panel">
+        <div class="panel-heading"><span class="step-badge">2</span><div><h2>Add the job description</h2><p>Optional, but recommended</p></div></div>
+        <label class="sr-only" for="job-description">Job description</label>
+        <textarea id="job-description" name="job_description" maxlength="20000" placeholder="Paste the full job description here…&#10;&#10;Example: We are looking for a Python developer with Flask, PostgreSQL, Git, and Docker experience."></textarea>
+        <div class="textarea-meta"><span>We only detect skills mentioned in the text.</span><span id="character-count">0 / 20,000</span></div>
+      </section>
+
+      <div class="form-footer">
+        <div class="form-message" id="form-message" role="alert"></div>
+        <button class="button button-primary analyze-button" type="submit"><span class="button-text">Analyze application</span><span class="button-loader" aria-hidden="true"></span><span aria-hidden="true">→</span></button>
+      </div>
+    </form>
+
+    <section class="history-section" aria-labelledby="history-title">
+      <div class="section-row"><div><span class="eyebrow">This browser session</span><h2 id="history-title">Recent analyses</h2></div><button class="text-button" id="refresh-history" type="button">Refresh</button></div>
+      <div class="history-list" id="history-list"><div class="history-loading">Loading your analysis history…</div></div>
+    </section>
+  </main>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='js/app_helpers.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</body>
+</html>
